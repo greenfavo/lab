@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{{title}}</title>
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
+	<link rel="stylesheet" href="assets/css/main.min.css"/>
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				        <span class="sr-only">Toggle navigation</span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+			        </button>
+			        <a href="/" class="navbar-brand" target="_blank">
+					    <img src="./assets/img/logo.png" alt="新思路logo" title="新思路团队官网">
+				    </a>
+				</div>
+				<ul class="nav navbar-nav">
+					<li><a href="/" target="_blank">首页</a></li>
+					<li><a href="./group" target="_blank">小组专区</a></li>
+					<li><a href="./show" target="_blank">成果展示</a></li>
+					<li><a href="./team" target="_blank">团队历程</a></li>
+					<li><a href="./about" target="_blank">关于我们</a></li>
+					<li><a href="./guestbook" target="_blank">留言板</a></li>
+					<li><a href="./search"><span class="glyphicon glyphicon-search"></span></a></li>
+
+					 <ul class="navbar-right">
+					 	<span id="loginbtn" class="unLogin">登录</span>
+					 	<span id="regbtn" class="unLogin">注册</span>
+					 	<span id="username" class="logined"></span>
+					 	<span id="out" class="logined">退出</span>
+					 </ul>
+				</ul>
+
+			</div>
+		</nav>		
+	</header>
+	<div id="container">
+		<article class="main">
+			{% block content %}
+
+			{% endblock %}
+		</article>
+		<aside>
+			
+		</aside>
+	</div>
+	{% include "../app/login.html" %}
+	{% include "../app/register.html" %}
+
+	<img src="/assets/img/loading.gif" alt="加载中..." class="loading hidden" />
+	<script src="/assets/js/jquery.min.js"></script>
+	<script src="/assets/js/bootstrap.min.js"></script>
+	<script src="/assets/js/main.js"></script>
+</body>
+</html>

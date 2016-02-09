@@ -10,11 +10,11 @@ module.exports = {
     mongo: {
         // 开发时用的数据库
         'development': {
-            connectionString: 'mongodb://localhost/lab'
+            connectionString: 'mongodb://127.0.0.1/lab'
         },
         // 生产时用的数据库
         'production': {
-            connectionString: 'mongodb://localhost/lab' //有待修改
+            connectionString: 'mongodb://127.0.0.1/lab' //有待修改
         },
         opts: {
             server: {

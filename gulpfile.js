@@ -3,7 +3,6 @@ var gulp = require('gulp'),
     less = require('gulp-less'),
     autoprefixer = require('gulp-autoprefixer'),
     minifycss = require('gulp-minify-css'),
-    //jshint = require('gulp-jshint'),
     uglify = require('gulp-uglify'),
     imagemin = require('gulp-imagemin'),
     rename = require('gulp-rename'),
@@ -36,16 +35,18 @@ gulp.task('styles', function() {
 gulp.task('scripts', function() {
     //js代码校验
     return gulp.src('public/js/*.js')
-    .pipe(jshint())
-    //.pipe(jshint.reporter('default'))
     //js代码合并
     .pipe(concat('main.js'))
+    //输出未压缩版本
+    .pipe(gulp.dest('public/assets/js/'))
     //给文件添加.min后缀
     .pipe(rename({ suffix: '.min' }))
     //压缩脚本文件
-    .pipe(uglify())
+    .pipe(uglify().on('error', function(e){
+            console.log(e);
+    }))
     //输出压缩文件到指定目录
-    .pipe(gulp.dest('assets/js/'))
+    .pipe(gulp.dest('public/assets/js/'))
     //提醒任务完成
     .pipe(notify({ message: 'Scripts task complete' }));
 });
@@ -74,5 +75,5 @@ gulp.task('watch', function() {
 
 // Default task
 gulp.task('default', function() {
-    gulp.start('styles', 'scripts', 'images');
+    gulp.start('styles', 'scripts', 'images','watch');
 });

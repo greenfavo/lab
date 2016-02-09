@@ -1,3 +1,134 @@
+.covery {
+  width: 680px;
+  height: 210px;
+}
+.postmeta {
+  background: white;
+  color: gray;
+  padding: 15px;
+  position: relative;
+}
+.postmeta h2 {
+  font-size: 20px;
+  margin-top: 0;
+  margin-left: 10px;
+}
+.postmeta p {
+  margin-top: 20px;
+}
+.postmeta span {
+  margin-left: 10px;
+}
+.postmeta .comments,
+.postmeta .readmore {
+  position: absolute;
+  right: 10px;
+}
+.modal .input {
+  width: 500px;
+  height: 40px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  padding-left: 10px;
+}
+.modal-dialog {
+  margin: 100px auto;
+}
+.modal-header {
+  border-bottom: 1px solid #5bc0de;
+  text-align: center;
+  padding: 10px;
+}
+.modal-header .close {
+  font-size: 40px;
+  margin-top: -5px;
+}
+.modal-body {
+  margin: 0 20px;
+  position: relative;
+}
+.modal-title {
+  color: #5bc0de;
+  font-size: 25px;
+  padding: 0;
+  margin-bottom: -50px;
+}
+.checkbox {
+  position: relative;
+  margin-bottom: 10px;
+}
+.checkbox input {
+  width: 18px;
+  height: 18px;
+  border: 1px solid #ccc;
+}
+.checkbox span {
+  position: absolute;
+  right: 25px;
+}
+.msg {
+  line-height: 40px;
+  width: 500px;
+  height: 40px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-left: 10px solid #F22259;
+  display: none;
+}
+
+html,
+body,
+div,
+span,
+p,
+a,
+nav,
+header,
+footer,
+section,
+article {
+  margin: 0;
+  padding: 0;
+}
 body {
   background: #f2f2f2;
+  font-family: "Microsoft Yahei", Tahoma, Arial, "Hiragino Sans GB", Verdana, sans-serif;
+  font-size: 16px;
+  color: black;
+}
+.navbar-default {
+  background: white;
+  width: 100%;
+  font-size: 20px;
+}
+.navbar-default li {
+  min-width: 100px;
+  margin-left: 30px;
+}
+.navbar-default img {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  bottom: 15px;
+}
+.navbar-right span {
+  margin-left: 5px;
+  line-height: 50px;
+  color: #777;
+  cursor: pointer;
+}
+.logined {
+  display: none;
+}
+.dropdown-menu {
+  text-align: center;
+  font-size: 18px;
+}
+#container {
+  width: 1100px;
+  margin: 0 auto;
+}
+.main {
+  width: 680px;
 }

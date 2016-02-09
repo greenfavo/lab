@@ -1,6 +1,9 @@
 var express = require('express');
 var app = express();
 
+var bodyParser=require('body-parser');
+var mongoose=require('mongoose');
+
 //加载Node模块
 var config = require('./config/config.js'); //参数设置文件
 var domain = require('./middleware/error.js'); //域处理异常
@@ -9,10 +12,10 @@ var test = require('./middleware/test.js'); //单元测试
 //var admin_routes = require('./routes/admin_routes.js'); //加载管理员页面路由
 var routes = require('./routes/routes.js');
 
-//var sessionStore = new MongoSessionStore({url: config.mongo.connectionString});
+//var sessionStore = new MongoSessionStore({url: config.mongo[app.get('env')].connectionString});
 
 // 初始化配置
-//config(app, mongoose);
+require('./config/init.js')(app, mongoose);
 
 
 // 设置模版引擎
@@ -34,14 +37,21 @@ app.use(test);
 app.use(express.static(__dirname + '/public'));
 
 
-// 加载表单处理中间件
-/*app.use(require('body-parser')());
+//使用body-parser中间件
+app.use(bodyParser.urlencoded({
+    extended:true
+}));
+app.use(bodyParser.json());
 
 // 加载cookie-parser来设置和访问cookie
 app.use(require('cookie-parser')(config.cookieSecret));
 // 加载会话
-app.use(require('express-session')({store: sessionStore}));
-*/
+app.use(require('express-session')({
+    resave: false,
+    saveUninitialized: false,
+    secret: config.cookieSecret,
+}));
+
 // 路由
 
 routes(app);
@@ -65,7 +75,7 @@ app.use(function(err, req, res, next){
 // 服务器集群
 var startServer = function(){
     app.listen(app.get('port'), function(){
-        console.log('Express started in ' + app.get('env') + ' mode on http://localhost:' + app.get('port') + '; Press Ctrl + C to exit.');
+        console.log('Express started in ' + app.get('env') + ' node on http://localhost:' + app.get('port') + '; Press Ctrl + C to exit.');
     });
 };
 if (require.main === module) {

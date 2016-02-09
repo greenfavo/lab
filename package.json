@@ -23,7 +23,13 @@
   },
   "homepage": "https://github.com/greenfavo/lab#readme",
   "dependencies": {
+    "body-parser": "^1.14.2",
+    "cookie-parser": "^1.4.1",
     "express": "^4.13.4",
+    "express-logger": "0.0.3",
+    "express-session": "^1.13.0",
+    "mongoose": "^4.4.2",
+    "morgan": "^1.6.1",
     "swig": "^1.4.2"
   },
   "devDependencies": {
@@ -32,7 +38,6 @@
     "gulp-cache": "^0.4.2",
     "gulp-concat": "^2.6.0",
     "gulp-imagemin": "^2.4.0",
-    "gulp-jshint": "^2.0.0",
     "gulp-less": "^3.0.5",
     "gulp-livereload": "^3.8.1",
     "gulp-minify-css": "^1.2.3",

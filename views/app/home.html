@@ -1,4 +1,21 @@
-{% extends '../layouts/main.html' %}
+{% extends '../layouts/app.html' %}
 {% block content %}
-<h1>hello,world</h1>
+<section class="post">
+	<a href="/" title=""><img class="covery" src="/assets/img/cover.png" alt="文章封面"/></a>
+	<div class="postmeta">
+		<a href="/post?id=1" target="_blank"><h2>测试文章</h2></a>
+		<p>
+			<span class="publish_time">2016-02-05</span>
+			分类:<span class="classify">web前端</span>
+			<span class="editlink">
+				<a href="/admin/edit?post=1">编辑</a>
+			</span>
+			<span class="comments">3 views</span>
+		</p>
+		<p>
+			<span class="tag label label-default">学习</span>
+			<a href="/post?id=1" class="readmore">阅读全文</a>
+		</p>
+	</div>
+</section>
 {% endblock %}

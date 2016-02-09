@@ -1,0 +1,37 @@
+<div class="modal fade" id="regModal" tabindex="-1"
+ role="dialog" aria-labelledby="regModal" arial-true="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" arial-hidden="true">
+					&times;
+				</button>
+				<h2 class="modal-title" id="regLabel">
+					注册
+				</h2>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="msg">用户名已存在</div>
+					<input type="text" id="regname" class="input" placeholder="*用户名" required/><br/>
+					<input type="text" id="trueName" class="input" placeholder="*真实姓名" required/><br/>
+					<input type="password" id="regpassword" class="input" placeholder="*密码" required/><br/>
+					<select id="group" class="input">
+						<option value="FeWeb">FeWeb组</option>
+						<option value="Android">Android组</option>
+						<option value="J2EE">J2EE组</option>
+						<option value=".Net">.Net组</option>
+						<option value="CPP">CPP组</option>
+						<option value="IOS">IOS组</option>
+						<option value="SearchEngine">SearchEngine组</option>
+					</select>
+					<input type="email" id="email" class="input" placeholder="*E-mail" required/><br/>
+					<input type="number" id="phone" class="input" placeholder="Phone" /><br/>
+					
+					<input type="button"  class="input btn btn-info" value="提交" id="regSubmit" />
+				</form>
+			</div>
+			
+		</div>
+	</div>
+ </div>

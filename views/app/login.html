@@ -1,0 +1,30 @@
+<div class="modal fade" id="loginModal" tabindex="-1"
+ role="dialog" aria-labelledby="loginModal" arial-true="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" arial-hidden="true">
+					&times;
+				</button>
+				<h2 class="modal-title" id="loginLabel">
+					登录
+				</h2>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="msg">用户名或密码错误</div>
+					<input type="text" id="user" class="input" placeholder="*用户名" required/><br/>
+					<input type="password" id="password" class="input" placeholder="*密码" required/><br/>
+					<div class="checkbox" >
+					    <label >
+					      <input type="checkbox" checked id="check">一周内自动登录
+					    </label>
+					    <span>忘记密码</span>
+					</div>
+					<input type="button"  class="input btn btn-info" value="提交"  id="loginSubmit" />
+				</form>
+			</div>
+			
+		</div>
+	</div>
+ </div>
