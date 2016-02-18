@@ -26,25 +26,9 @@ module.exports={
 				});
 				doc.views++;
 				console.log(doc.views);
-				
+
 				models.Article.update({_id:id},{$set:{views:doc.views}});
 			}
 		});
-
-		/*var query=models.Article.findById(id);
-		query.exec(function(error,doc){
-			if (error) {
-				res.send(error);
-			}else if (!doc) {
-				res.render('404',{title:'404'});
-			}else{
-				var views=doc.views+1;
-				res.render('app/article',{
-					title:doc.title,
-					doc:doc,
-				});
-				models.Article.update({_id:id},{$set:{views:views}});
-			}
-		})*/
 	}
 }
