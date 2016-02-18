@@ -1,3 +1,18 @@
+.detail {
+  background: white;
+  padding: 20px;
+}
+.detail .postmeta {
+  color: #ccc;
+  text-indent: 0;
+}
+.detail p {
+  text-indent: 2em;
+}
+
+.post {
+  margin-bottom: 30px;
+}
 .covery {
   width: 680px;
   height: 210px;
@@ -19,7 +34,7 @@
 .postmeta span {
   margin-left: 10px;
 }
-.postmeta .comments,
+.postmeta .views,
 .postmeta .readmore {
   position: absolute;
   right: 10px;
@@ -87,7 +102,9 @@ nav,
 header,
 footer,
 section,
-article {
+article,
+ul,
+li {
   margin: 0;
   padding: 0;
 }
@@ -125,10 +142,43 @@ body {
   text-align: center;
   font-size: 18px;
 }
-#container {
+#container,
+footer {
   width: 1100px;
   margin: 0 auto;
 }
 .main {
   width: 680px;
+  float: left;
+}
+aside {
+  margin-left: 720px;
+  width: 300px;
+  position: relative;
+}
+aside .views {
+  position: absolute;
+  right: 10px;
+  color: #ccc;
+}
+aside h2 {
+  font-size: 25px;
+  border-left: 3px solid #5bc0de;
+  padding-left: 20px;
+  color: #777;
+}
+aside li {
+  list-style: none;
+  border-bottom: 1px solid #ccc;
+  margin-top: 15px;
+  height: 30px;
+  line-height: 30px;
+}
+footer {
+  clear: both;
+  height: 50px;
+  border-top: 1px solid #ccc;
+  margin-top: 20px;
+  text-align: center;
+  line-height: 50px;
 }

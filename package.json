@@ -24,12 +24,16 @@
   "homepage": "https://github.com/greenfavo/lab#readme",
   "dependencies": {
     "body-parser": "^1.14.2",
+    "busboy": "^0.2.12",
     "cookie-parser": "^1.4.1",
     "express": "^4.13.4",
     "express-logger": "0.0.3",
     "express-session": "^1.13.0",
+    "formidable": "^1.0.17",
+    "fs-extra": "^0.26.5",
     "mongoose": "^4.4.2",
     "morgan": "^1.6.1",
+    "node-snowflake": "0.0.1",
     "swig": "^1.4.2"
   },
   "devDependencies": {

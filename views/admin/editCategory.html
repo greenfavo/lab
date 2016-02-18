@@ -1,0 +1,26 @@
+{% extends '../layouts/admin.html' %}
+{% block content %}
+<form class="categoryEditForm" action="" method="post">
+  <div class="form-group">
+    <label for="categoryName">名称</label>
+    <input type="text" class="form-control categoryName" placeholder="分类目录名" value="{{name}}" name="name">
+    <p class="help-block">这将是它在站点上显示的名字。</p>
+  </div>
+  <div class="form-group">
+    <label for="alias">别名</label>
+    <input type="text" class="form-control alias" placeholder="分类目录别名" name="alias" value="{{alias}}">
+    <p class="help-block">别名是在URL中使用的别称，它可以令URL更美观。通常使用小写，只能包含字母，数字和连字符（-）。</p>
+  </div>
+  
+  <div class="form-group">
+  	<label for="parent">父节点</label>
+  	<select class="form-control parent" name="parent">
+  		<option value="null">无</option>
+  		{% for c in category %}
+		<option value="{{c.id}}" class="{{c.id}}">{{c.name}}</option>
+  		{% endfor %}
+  	</select>
+  </div>
+  <input type="submit" class="btn btn-primary" value='更新分类目录'/>
+</form>
+{% endblock %}

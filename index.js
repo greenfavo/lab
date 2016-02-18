@@ -9,7 +9,7 @@ var config = require('./config/config.js'); //参数设置文件
 var domain = require('./middleware/error.js'); //域处理异常
 var thread = require('./middleware/cluster.js'); //多线程显示
 var test = require('./middleware/test.js'); //单元测试
-//var admin_routes = require('./routes/admin_routes.js'); //加载管理员页面路由
+var admin_routes = require('./routes/admin_routes.js'); //加载管理员页面路由
 var routes = require('./routes/routes.js');
 
 //var sessionStore = new MongoSessionStore({url: config.mongo[app.get('env')].connectionString});
@@ -55,7 +55,7 @@ app.use(require('express-session')({
 // 路由
 
 routes(app);
-//admin_routes(app);
+admin_routes(app);
 
 
 // 处理异常

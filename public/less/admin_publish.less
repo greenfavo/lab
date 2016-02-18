@@ -1,0 +1,65 @@
+@red:#F56B79;
+.publish{
+	position: relative;	
+	.articleTitle{
+		width: 850px;
+		height: 40px;
+		border: 1px solid #ccc;
+		margin: 10px 0;
+		padding-left: 10px;
+	}
+	article{
+		width: 850px;
+		float: left;
+	}
+	aside{
+		float: left;
+		margin-top: -10px;
+		margin-left: 30px;
+		h2{
+			padding: 5px 0;
+			border-bottom: 1px solid #ccc;
+		}
+	}
+	section{
+		position: relative;
+		width: 270px;
+		background-color: white;
+		margin-bottom: 20px;
+		padding: 10px;
+		padding-top: 0;
+	}
+	.category{
+		input{
+			margin-right: 10px;
+		}
+	}
+	.btn{
+		min-width: 50px;
+		height: 30px;
+		margin-top: -5px;
+	}
+}
+.glyphicon-trash{
+	cursor: pointer;
+	font-size: 22px;
+	color: @red;
+}
+#submitBtn{
+	position: absolute;
+	right:10px;
+}
+.tags{
+	margin-top: 10px;
+	
+	input{
+		color: green;
+		border: none;
+		outline: none;
+		margin-left: 5px;
+	}
+}
+.removeTag{
+	cursor: pointer;
+	color: @red;
+}

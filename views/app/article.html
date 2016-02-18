@@ -1,0 +1,27 @@
+{% extends '../layouts/app.html' %}
+{% block content %}
+<article class="main">
+	<article class="detail">
+		<h2>{{doc.title}}</h2>
+		<p class="postmeta">
+			<span>{{doc.time}}</span>
+			<span>
+				{% for c in doc.classes%}
+					{{c}}
+				{% endfor %}
+			</span>
+			<span>{{doc.views}}</span>
+			<span>{{doc.comments.length}}</span>
+		</p>
+		<div class="article">
+			{% autoescape false %}
+			    {{doc.content}}
+			{% endautoescape %}
+		</div>
+		{% for t in doc.tag %}
+		<span class="tag label label-default">{{t}}</span>
+		{% endfor %}
+	</article>
+</article>
+{% include "sidebar.html" %}
+{% endblock %}

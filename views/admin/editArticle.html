@@ -1,0 +1,61 @@
+{% extends '../layouts/admin.html' %}
+{% block content %}
+<a href="/admin/article/publish">新建文章</a>
+<form action="" method="POST" class="publish">
+	<p>{{msg}}</p>
+	<article>
+		<input type="text" placeholder="在此输入标题" id="articleTitle" class="articleTitle" name="articleTitle" value="{{articleTitle}}" /><br/>
+
+		<!-- 加载编辑器的容器 -->		
+		<textarea name="articleContent" id="myeditor">
+			{{articleContent}}
+		</textarea>
+	</article>
+	<aside>
+		<section>
+			<h2>发布</h2>
+			<span class="glyphicon glyphicon-trash" title="删除"></span>
+			<input type="submit" value='更新' id="submitBtn" class="btn btn-success" name="submitBtn">
+
+		</section>
+		<section class="category">
+			<h2>分类目录</h2>
+			{% for c in category %}	
+				<input type="checkbox" name="category"  class="cate_checkbox" value="{{c.name}}" {{checked[loop.index0]}} />{{c.name}}<br/>
+			{% endfor %}
+		</section>
+
+		<section class="tag">
+			<h2>标签</h2>
+			<input type="text" id="tag" />
+			<a class="btn btn-default addTag">添加</a>
+			<div class="tags">
+				{% for i in tag %}
+				<p>
+					<input type="text" name="tag" value='{{i}}' />
+					<span class='glyphicon glyphicon-remove removeTag'></span>
+				</p>
+				{% endfor %}
+			</div>			
+		</section>
+	</aside>
+</form>
+
+<!-- ueditor配置文件 -->
+<script type="text/javascript" src="/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+
+<script type="text/javascript" src="/ueditor/ueditor.all.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+    var ue = UE.getEditor('myeditor',{
+    	initialFrameHeight:400,
+    	toolbars:[
+        	[
+               'fullscreen','source','undo','redo','bold','simpleupload','insertimage','attachment','edittip ','autotypeset','emotion','indent','subscript','superscript','forecolor','fontfamily','fontsize','link','justifyleft','justifyright','justifycenter','paragraph','insertorderedlist','insertunorderedlist','pagebreak','preview'
+        	]
+    	]
+    });
+</script>
+{% endblock %}

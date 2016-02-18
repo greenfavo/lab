@@ -14,33 +14,34 @@ var userSchema = mongoose.Schema({
         sign: String, //一串能够指明用户有哪些权限的数据
         userClass: String //用户类型，如果是管理员则为admin
     },
-    through: Boolean
+    through:{
+        type:Boolean,
+        default:false
+    }
 });
 // 文章模式
 var articleSchema = mongoose.Schema({
     title: String,
     author: String,
     content: String,
-    time: Date,
-    classes: {
-        // 格式为
-        // 一级分组：{
-            // 二级分组: class
-            // }
-        
-    }, //文章所属分组
+    time: String,
+    classes:[String], //文章所属分组
     tag: [String], //标签
     comments: {
         users: [{
             userName: String,
             content: String,
-            time: Date
+            time: String
         }], //用户留言
         visitor: [{
             userEmail: String,
             content: String,
-            time: Date
+            time: String
         }] //游客留言
+    },
+    views:{
+        type:Number,
+        default:0
     },
     files:
     [    // 格式为"fileName: url"
@@ -50,11 +51,21 @@ var articleSchema = mongoose.Schema({
         }
     ]
 });
+//分类目录模式
+var categorySchema=mongoose.Schema({
+    name:String,//名称
+    alias:String,//别名
+    pid:{//父节点id
+        type:String,
+        default:null
+    }
+});
 
 // 绑定模型
 // 用户模型
 var User = mongoose.model('User', userSchema);
 var Article = mongoose.model('Article', articleSchema);
+var Category =mongoose.model('Category',categorySchema);
 
 // 初始化，添加最高权限用户root
 User.find(function(err, users){
@@ -80,3 +91,4 @@ User.find(function(err, users){
 // 导出模型
 exports.User = User;
 exports.Article = Article;
+exports.Category=Category;

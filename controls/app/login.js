@@ -8,7 +8,6 @@ module.exports={
 		models.User.find({userName:username,password:password},function(error,users){
 			if (error) return console.error(error);
 			if (users.length) {
-				req.session.username=username;
 				if (checked) {
 					res.cookie('username',username,{
 						signed:true,
@@ -16,6 +15,8 @@ module.exports={
 						maxAge:60*60*24*7*1000//一周内自动登录
 					});
 				};
+				req.session.username=username;
+
 				res.json({
 					signal:'success',
 					username:username
