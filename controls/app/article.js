@@ -14,6 +14,7 @@ module.exports={
 	},
 	detail:function(req,res){//文章详情页
 		var id=req.params.id;
+		console.log('id是'+id);
 		models.Article.findById(id,function(error,doc){
 			if (error) {
 				res.send(error);
