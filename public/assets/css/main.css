@@ -4,10 +4,33 @@
 }
 .detail .postmeta {
   color: #ccc;
-  text-indent: 0;
 }
-.detail p {
+.post_content {
+  border-bottom: 2px solid #19C1CA;
+  padding-bottom: 10px;
+}
+.post_content p {
   text-indent: 2em;
+}
+.commentList li {
+  overflow: hidden;
+  margin-top: 10px;
+}
+.commentList .avatar {
+  width: 50px;
+  height: 50px;
+  background: #19C1CA;
+  color: white;
+  border-radius: 50%;
+  float: left;
+  line-height: 50px;
+  text-align: center;
+  margin-right: 10px;
+  font-size: 20px;
+}
+.commentsForm .input {
+  margin-bottom: 10px;
+  width: 100%;
 }
 
 .post {
@@ -108,6 +131,9 @@ li {
   margin: 0;
   padding: 0;
 }
+li {
+  list-style: none;
+}
 body {
   background: #f2f2f2;
   font-family: "Microsoft Yahei", Tahoma, Arial, "Hiragino Sans GB", Verdana, sans-serif;
@@ -159,7 +185,8 @@ aside {
 aside .views {
   position: absolute;
   right: 10px;
-  color: #ccc;
+  color: gray;
+  font-size: 14px;
 }
 aside h2 {
   font-size: 25px;

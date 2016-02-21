@@ -20,4 +20,11 @@ module.exports=function(app){
 	//文章详情页
 	app.get('/article/:id',article.detail);
 
+	app.post('/handleComments',article.handleComments);//评论处理
+
+	//团队历程--静态页面
+	app.get('/team',function(req,res){
+		res.render('app/team',{title:'团队历程'});
+	});
+
 }

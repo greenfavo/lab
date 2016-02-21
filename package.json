@@ -12,7 +12,7 @@
   },
   "keywords": [
     "nodejs",
-    "Express",
+    "Express4",
     "swig",
     "mongodb"
   ],
@@ -29,7 +29,6 @@
     "express": "^4.13.4",
     "express-logger": "0.0.3",
     "express-session": "^1.13.0",
-    "formidable": "^1.0.17",
     "fs-extra": "^0.26.5",
     "mongoose": "^4.4.2",
     "morgan": "^1.6.1",

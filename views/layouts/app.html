@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>{{title}}</title>
+	<title>{{title}}-新思路团队官网</title>
 	<link href="/assets/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="//cdn.bootcss.com/fullPage.js/2.7.7/jquery.fullPage.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="/assets/css/main.min.css"/>
 </head>
 <body>
@@ -41,11 +42,9 @@
 			</div>
 		</nav>		
 	</header>
-	<div id="container">
-		{% block content %}
+	{% block content %}
 
-		{% endblock %}
-	</div>
+	{% endblock %}
 	{% include "../app/login.html" %}
 	{% include "../app/register.html" %}
 	<footer>
@@ -54,5 +53,6 @@
 	<script src="/assets/js/jquery.min.js"></script>
 	<script src="/assets/js/bootstrap.min.js"></script>
 	<script src="/assets/js/main.js"></script>
+	<script src="//cdn.bootcss.com/fullPage.js/2.7.7/jquery.fullPage.min.js"></script>
 </body>
 </html>

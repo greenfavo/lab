@@ -1,27 +1,58 @@
 {% extends '../layouts/app.html' %}
 {% block content %}
-<article class="main">
-	<article class="detail">
-		<h2>{{doc.title}}</h2>
-		<p class="postmeta">
-			<span>{{doc.time}}</span>
-			<span>
-				{% for c in doc.classes%}
-					{{c}}
+<div id="container">
+	<article class="main detail">
+		<article class="post_content">
+			<h2>{{doc.title}}</h2>
+			<p class="postmeta">
+				<span>{{doc.time}}</span>
+				<span>
+					{% for c in doc.classes%}
+						{{c}}
+					{% endfor %}
+				</span>
+				<span>浏览({{doc.views}})</span>
+				<span>评论({{doc.comments.length}})</span>
+			</p>
+			<div class="article">
+				{% autoescape false %}
+				    {{doc.content}}
+				{% endautoescape %}
+			</div>
+			{% for t in doc.tag %}
+			<span class="tag label label-default">{{t}}</span>
+			{% endfor %}
+		</article>
+		<section class="commentList">
+			<ul>
+				{% for comment in doc.comments %}
+				<li>
+					<div class="avatar">B</div>
+					<div class="commen_info">
+						<span class="author">{{comment.name}}</span> 发表于{{comment.time}}
+						<div class="content">
+							{{comment.content}}
+						</div>
+					</div>
+				</li>
 				{% endfor %}
-			</span>
-			<span>{{doc.views}}</span>
-			<span>{{doc.comments.length}}</span>
-		</p>
-		<div class="article">
-			{% autoescape false %}
-			    {{doc.content}}
-			{% endautoescape %}
-		</div>
-		{% for t in doc.tag %}
-		<span class="tag label label-default">{{t}}</span>
-		{% endfor %}
+			</ul>
+		</section>
+		<section class="commentsForm">
+			<h2>发表评论</h2>
+			<form action="/handleComments" method="post">
+				{% if username==null %}
+				<input type="text" placeholder='*昵称' class="input" name="name" required /><br/>
+				<input type="email" placeholder='*邮箱' class="input" name="email" required /><br/>
+				{% else %}
+				{{username}},已登录,可直接评论<br/>
+				{% endif %}
+				<textarea name="content" rows="3" class="input" placeholder="说点什么吧..."></textarea><br/>
+				<input type="hidden" name="id" value="{{doc.id}}"/>
+				<input type="submit" value="提交" class="btn btn-primary" />
+			</form>
+		</section>
 	</article>
-</article>
-{% include "sidebar.html" %}
+	{% include "sidebar.html" %}
+</div>
 {% endblock %}

@@ -4,17 +4,16 @@
 <form action="" method="POST" class="publish">
 	<p>{{msg}}</p>
 	<article>
-		<input type="text" placeholder="在此输入标题" id="articleTitle" class="articleTitle" name="articleTitle" value="{{articleTitle}}" /><br/>
+		<input type="text" placeholder="在此输入标题" id="articleTitle" class="articleTitle" name="articleTitle" value="{{doc.title}}" /><br/>
 
 		<!-- 加载编辑器的容器 -->		
 		<textarea name="articleContent" id="myeditor">
-			{{articleContent}}
+			{{doc.content}}
 		</textarea>
 	</article>
 	<aside>
 		<section>
 			<h2>发布</h2>
-			<span class="glyphicon glyphicon-trash" title="删除"></span>
 			<input type="submit" value='更新' id="submitBtn" class="btn btn-success" name="submitBtn">
 
 		</section>
@@ -30,7 +29,7 @@
 			<input type="text" id="tag" />
 			<a class="btn btn-default addTag">添加</a>
 			<div class="tags">
-				{% for i in tag %}
+				{% for i in doc.tag %}
 				<p>
 					<input type="text" name="tag" value='{{i}}' />
 					<span class='glyphicon glyphicon-remove removeTag'></span>

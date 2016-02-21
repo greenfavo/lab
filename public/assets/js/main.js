@@ -12,6 +12,11 @@ $(document).ready(function() {
 			$(this).attr('checked', 'checked');
 		}
 	});
+
+	$('.hotpost_title').each(function(index, el) {
+		var str=str_substr($(this).text(),17);
+		$(this).text(str);
+	});
 	
 	//登录成功
 	function logined(data){
@@ -67,7 +72,7 @@ $(document).ready(function() {
  					$("#loginModal").modal('hide')
  					logined(data);
  				}else{
- 					$(".msg").show();
+ 					$(".msg").text(data.signal).show();
  					$("#user,#password").val('');
  				}
  			},
@@ -188,5 +193,25 @@ $(document).ready(function() {
  	register.validate();
  	$('#regSubmit').click(register.handleReg);
  	
- 	
+ 	function str_substr(str,n){
+    	if (str.length>n) {
+    		str=str.substr(0,n)+"...";
+    	};
+    	return str;
+    }
+
+});
+$(function() {
+	$('#team').fullpage({
+		 sectionsColor: ['#3AB5F3', '#1ECF90', '#68E6D0', '#5E3BE8'],
+		 navigationColor:'#2FCDA8',
+		 navigation:true,
+		 navigationColor:'#2AEB88',
+		 loopBottom:true,
+		 anchors:['1','2','3','4'],
+		 menu:true,
+		 fixedElements: 'header,footer',
+	});
+
+
 });

@@ -5,9 +5,9 @@ module.exports={
 		var password=req.body.password;
 		var checked=req.body.checked;
 
-		models.User.find({userName:username,password:password},function(error,users){
+		models.User.findOne({userName:username,password:password},function(error,user){
 			if (error) return console.error(error);
-			if (users.length) {
+			if (user&&user.through) {//验证成功并且审核通过
 				if (checked) {
 					res.cookie('username',username,{
 						signed:true,
@@ -21,11 +21,15 @@ module.exports={
 					signal:'success',
 					username:username
 				});
+			}else if(!user.through){
+				res.json({
+					signal:'该用户未通过审核'
+				});
 			}else{
 				console.log('用户名或密码错误');
 				res.json({
 					signal:'用户名或密码错误'
-				})
+				});
 			}
 		})
 	},

@@ -10,9 +10,14 @@ var userSchema = mongoose.Schema({
     email: String,
     group: String, //用户所属的组
     phone: String,
-    control: {
-        sign: String, //一串能够指明用户有哪些权限的数据
-        userClass: String //用户类型，如果是管理员则为admin
+    /*
+    角色:admin(系统管理员),拥有最高权限
+    editor(编辑),发布文章,修改和删除自己的文章和回复评论
+    member(成员),浏览和评论
+    */
+    role:{
+        type:String,
+        default:null
     },
     through:{
         type:Boolean,
@@ -27,24 +32,28 @@ var articleSchema = mongoose.Schema({
     time: String,
     classes:[String], //文章所属分组
     tag: [String], //标签
-    comments: {
-        users: [{
-            userName: String,
+    comments:[
+        {
+            role:{//用户类型 user或visitor
+                type:String,
+                default:'visitor'
+            },
+            name: String,//游客名称或已登录用户名
+            email:String,//只有游客需填写
             content: String,
-            time: String
-        }], //用户留言
-        visitor: [{
-            userEmail: String,
-            content: String,
-            time: String
-        }] //游客留言
-    },
-    views:{
+            time: String,
+            through:{
+                type:Boolean,
+                default:false
+            },
+        }
+    ], 
+    views:{//浏览量
         type:Number,
         default:0
     },
     files:
-    [    // 格式为"fileName: url"
+    [    
         {
             fileName:String,
             filepath:String
@@ -78,10 +87,7 @@ User.find(function(err, users){
         email: '',
         group: 'FeWeb',
         phone: '',
-        control: {
-            sign: '',
-            userClass: 'root'
-        },
+        role:'admin',
         through: true
     }).save(function(err, docs){
         if(err) return console.log(err);

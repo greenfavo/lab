@@ -25,10 +25,11 @@ $(document).ready(function() {
 
 	checkAll($('.checkAll'),$('.cate_box'));
 	checkAll($('.checkAll'),$('.article_box'));
+	checkAll($('.checkAll'),$('.user_box'));
+
 
 
 	$('.addCategory').click(addCategory);
-	// $('.ctb').on('click','.deleteBtn',deleteCategory);
 	$('.deleteBtn').click(deleteCategory(event));
 	$('.delete_article_btn').click(deleteArticle);
 

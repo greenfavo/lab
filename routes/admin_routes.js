@@ -1,6 +1,8 @@
 var home=require('../controls/admin/home.js');
 var article=require('../controls/admin/article.js');
 var category=require('../controls/admin/category.js');
+var user=require('../controls/admin/user.js');
+
 
 module.exports=function(app){
 	app.get('/admin',home.home);
@@ -25,5 +27,11 @@ module.exports=function(app){
     
     app.get('/admin/article/category/edit',category.edit);
     app.post('/admin/article/category/edit',category.handleEdit);
+
+    //用户管理
+    app.get('/admin/user',user.user);//所有用户
+    app.get('/admin/user/through*',user.through);//审核通过
+    app.get('/admin/user/delete*',user.delete);//删除
+    app.post('/admin/user/authorize',user.authorize);//授权并通过
 
 }

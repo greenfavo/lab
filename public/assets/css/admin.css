@@ -83,6 +83,9 @@ header li {
   position: absolute;
   right: 10px;
 }
+.select {
+  height: 34px;
+}
 
 .categoryForm {
   width: 400px;
@@ -121,6 +124,7 @@ header li {
 .publish section {
   position: relative;
   width: 270px;
+  min-height: 70px;
   background-color: white;
   margin-bottom: 20px;
   padding: 10px;

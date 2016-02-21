@@ -132,11 +132,9 @@ module.exports={
 						res.render('admin/editArticle',{
 							title:'编辑文章',
 							username:req.session.username||req.signedCookies.username,
-							articleTitle:doc.title,
-							articleContent:doc.content,
+							doc:doc,
 							checked:checked,
 							category:category,
-							tag:doc.tag
 						});
 					})					
 				}
