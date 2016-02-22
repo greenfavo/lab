@@ -2,14 +2,31 @@ var models=require('../../models/models.js');
 module.exports={
 	user:function(req,res){
 		if (req.session.username||req.signedCookies.username){
-			models.User.find({},function(error,users){
+			var pageSize=10;//每页文档数
+			var currentPage=req.query.page||1;//当前页码
+			currentPage=currentPage<1? 1:currentPage;
+
+			models.User.count({},function(error,count){//查询总数
 				if (error) return console.log(error);
-				res.render('admin/user',{
-					title:'用户管理',
-					username:req.session.username||req.signedCookies.username,
-					users:users
-				});
-			}).sort({through:1});
+
+				var pageCount=Math.ceil(count/pageSize);//总页数
+				currentPage=currentPage>pageCount? pageCount:currentPage;
+				var skipNum=(currentPage-1)*pageSize;
+
+
+				models.User.find({},function(error,users){
+					if (error) return console.log(error);
+					
+					res.render('admin/user',{
+						title:'用户管理',
+						username:req.session.username||req.signedCookies.username,
+						users:users,
+						pageCount:Array(pageCount),//因为swig for in循环必须是数组或对象
+						currentPage:currentPage,
+						url:'/admin/user'
+					});
+				}).limit(pageSize).skip(skipNum).sort({through:1});
+			})
 			
 		}else{
 			res.redirect(303,'/?login=false');

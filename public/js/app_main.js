@@ -4,7 +4,7 @@ $(document).ready(function() {
 			keyboard:true
 		})
 	};
-
+	
 	$("#check").click(function(){
 		if ($(this).attr('checked')) {
 			$(this).removeAttr('checked');

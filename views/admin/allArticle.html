@@ -49,8 +49,6 @@
 		    {% endfor %}
 		</table>
 	</div>
-	<div class="panel-footer">
-		<span class="quantity">共{{article.length}}篇文章</span>
-	</div>
+	{% include '../layouts/pagination.html' %}
 </form>
 {% endblock %}

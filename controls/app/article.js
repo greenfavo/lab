@@ -2,22 +2,35 @@ var models=require('../../models/models.js');
 var format=require('../../middleware/format.js');
 module.exports={
 	home:function(req,res){//主页
-		models.Article.find({},function(error,docs){
-			if (error) {
-				return console.error(error);
-			}
+		var pageSize=10;//每页文档数
+		var currentPage=req.query.page||1;//当前页码
+		currentPage=currentPage<1? 1:currentPage;
+
+		models.Article.count({},function(error,count){//查询文章总数
+			if (error) return console.error(error);
+
+			var pageCount=Math.ceil(count/pageSize);//总页数
+			currentPage=currentPage>pageCount? pageCount : currentPage;
+			var skipNum=(currentPage-1)*pageSize;//跳过的文档数
+
 			models.Article.find({},function(error,hotPosts){//热门文章
-				if (error) {
-					return console.log(error);
-				};
-				res.render('app/home',{
-					title:'主页',
-					docs:docs,
-					hotPosts:hotPosts
-				});
+				if (error) return console.log(error);
+
+				models.Article.find({},function(error,docs){
+					if (error) return console.log(error);
+					res.render('app/home',{
+						title:'主页',
+						docs:docs,
+						hotPosts:hotPosts,
+						pageCount:Array(pageCount),//因为swig for in循环必须是数组或对象
+						currentPage:currentPage,
+						url:''
+					});
+				}).limit(pageSize).skip(skipNum).sort({_id:-1});
+				
 			}).sort({views:-1}).limit(5);
 
-		}).sort({_id:-1});
+		});
 	},
 	detail:function(req,res){//文章详情页
 		var id=req.params.id;
@@ -86,6 +99,6 @@ module.exports={
 				if (error) return console.error(error);
 				res.redirect(303,'/article/'+id);
 		});
-	}
+	},
 	
 }

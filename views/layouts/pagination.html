@@ -1,0 +1,28 @@
+<!-- 分页 -->
+<nav>
+  <ul class="pagination">		  
+	{% if currentPage > 1 %}
+	<li>
+      <a href="{{url}}?page={{currentPage-1}}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    {% endif %}
+
+    {% for i in pageCount %}
+	    {% if loop.index==currentPage %}
+	    <li class="active"><span>{{loop.index}} <span class="sr-only">(current)</span></span></li>
+	    {% else %}
+	    <li><a href="{{url}}?page={{loop.index}}">{{loop.index}}</a></li>
+	    {% endif %}
+    {% endfor %}
+
+    {% if currentPage!=pageCount.length %}
+		<li>
+	      <a href="{{url}}?page={{ currentPage-(-1) }}" aria-label="Next">
+	        <span aria-hidden="true">&raquo;</span>
+	      </a>
+	    </li>
+	{% endif %}
+  </ul>
+</nav>

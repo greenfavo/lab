@@ -170,17 +170,26 @@ module.exports={
 	},
 	all:function(req,res){
 		if (req.session.username||req.signedCookies.username) {
+			var pageSize=10;//每页文档数
+			var currentPage=req.query.page||1;//当前页码
+			var skipNum=(currentPage-1)*pageSize;
     		models.Article.find({},function(error,docs){
     			if (error) {
     				res.send(error);
     			}else{
-	    			res.render('admin/allArticle',{
-						title:'所有文章',
-						username:req.session.username||req.signedCookies.username,
-						article:docs
+    				models.Article.count({},function(error,count){//查询文章总数
+						if (error) return console.log(error);
+						var pageCount=Math.ceil(count/pageSize);//总页数
+						res.render('admin/allArticle',{
+							title:'所有文章',
+							article:docs,
+							pageCount:Array(pageCount),//因为swig for in循环必须是数组或对象
+							currentPage:currentPage,
+							url:'/admin/article'
+						});
 					});
     			}
-    		}).sort({_id:-1});//倒序排列
+    		}).limit(pageSize).skip(skipNum).sort({_id:-1});//倒序排列
     		
 		}else{
 			res.redirect(303,'/?login=false');
