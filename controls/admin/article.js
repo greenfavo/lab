@@ -172,24 +172,28 @@ module.exports={
 		if (req.session.username||req.signedCookies.username) {
 			var pageSize=10;//每页文档数
 			var currentPage=req.query.page||1;//当前页码
-			var skipNum=(currentPage-1)*pageSize;
-    		models.Article.find({},function(error,docs){
-    			if (error) {
-    				res.send(error);
-    			}else{
-    				models.Article.count({},function(error,count){//查询文章总数
-						if (error) return console.log(error);
-						var pageCount=Math.ceil(count/pageSize);//总页数
-						res.render('admin/allArticle',{
-							title:'所有文章',
-							article:docs,
-							pageCount:Array(pageCount),//因为swig for in循环必须是数组或对象
-							currentPage:currentPage,
-							url:'/admin/article'
-						});
-					});
-    			}
-    		}).limit(pageSize).skip(skipNum).sort({_id:-1});//倒序排列
+
+    		models.Article.count({},function(error,count){
+    			if (error) return console.error(error);
+
+				var pageCount=Math.ceil(count/pageSize);//总页数
+				currentPage=currentPage>pageCount? pageCount : currentPage;
+				currentPage=currentPage<1? 1:currentPage;
+				var skipNum=(currentPage-1)*pageSize;//跳过的文档数
+
+
+				models.Article.find({},function(error,docs){//查询文章总数
+					if (error) return console.log(error);
+					res.render('admin/allArticle',{
+						title:'所有文章',
+						article:docs,
+						username:req.session.username||req.signedCookies.username,
+						pageCount:Array(pageCount),//因为swig for in循环必须是数组或对象
+						currentPage:currentPage,
+						url:'/admin/article',
+					});					
+				}).limit(pageSize).skip(skipNum).sort({_id:-1});//倒序排列
+    		});
     		
 		}else{
 			res.redirect(303,'/?login=false');
@@ -215,7 +219,10 @@ module.exports={
 					}else{
 						res.json({
 							signal:'success'
-						})
+						});
+						models.Comment.remove({articleId:id},function(error){
+							if (error) return console.error(error);
+						});
 					}
 				});
 			}
@@ -224,10 +231,15 @@ module.exports={
 	deleteSelected:function(req,res){
 		var post=req.body.postid;//id数组
 		var query=models.Article.where('_id').in(post);//批量多个
+		var query2=models.Comment.where('articleId').in(post);
+
 		models.Article.remove(query,function(error,docs){
 			if (error) {
 				console.error(error);
 			}else{
+				models.Comment.remove(query2,function(error){//删除相关评论
+					if (error) return console.error(error);
+				});
 				res.redirect(303,'/admin/article');
 			}
 		});

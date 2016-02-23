@@ -32,22 +32,6 @@ var articleSchema = mongoose.Schema({
     time: String,
     classes:[String], //文章所属分组
     tag: [String], //标签
-    comments:[
-        {
-            role:{//用户类型 user或visitor
-                type:String,
-                default:'visitor'
-            },
-            name: String,//游客名称或已登录用户名
-            email:String,//只有游客需填写
-            content: String,
-            time: String,
-            through:{
-                type:Boolean,
-                default:false
-            },
-        }
-    ], 
     views:{//浏览量
         type:Number,
         default:0
@@ -59,6 +43,21 @@ var articleSchema = mongoose.Schema({
             filepath:String
         }
     ]
+});
+var commentSchema=mongoose.Schema({//评论模式
+    role:{//用户类型 user或visitor
+        type:String,
+        default:'visitor'
+    },
+    name: String,//游客名称或已登录用户名
+    email:String,//只有游客需填写
+    content: String,
+    time: String,
+    articleId:String,
+    through:{
+        type:Boolean,
+        default:false
+    },
 });
 //分类目录模式
 var categorySchema=mongoose.Schema({
@@ -75,6 +74,8 @@ var categorySchema=mongoose.Schema({
 var User = mongoose.model('User', userSchema);
 var Article = mongoose.model('Article', articleSchema);
 var Category =mongoose.model('Category',categorySchema);
+var Comment =mongoose.model('Comment',commentSchema);
+
 
 // 初始化，添加最高权限用户root
 User.find(function(err, users){
@@ -98,3 +99,4 @@ User.find(function(err, users){
 exports.User = User;
 exports.Article = Article;
 exports.Category=Category;
+exports.Comment=Comment;

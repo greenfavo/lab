@@ -17,6 +17,11 @@ $(document).ready(function() {
 		var str=str_substr($(this).text(),17);
 		$(this).text(str);
 	});
+	//获取评论作者名称第一个字作为头像
+	$('.avatar').each(function(index, el) {
+		var avatar=$(this).text()[0].toUpperCase();
+		$(this).text(avatar);
+	});
 	
 	//登录成功
 	function logined(data){
@@ -40,6 +45,7 @@ $(document).ready(function() {
  		}
  	})
 
+ 	//打开登录框
 	$('#loginbtn').click(function(event) {
 		event.preventDefault();
 		if ($(this).text()==='登录') {
@@ -50,6 +56,7 @@ $(document).ready(function() {
 		
 	});
 
+	//登录提交
 	$("#loginSubmit").click(function(){
  		var username=$("#user").val();
  		var password=$("#password").val();
@@ -83,6 +90,7 @@ $(document).ready(function() {
  		});
  	});
 
+	//注销登录
  	$("#out").click(function(){
  		$.get('/login/out', function(data) {
  			if (data.signal==='out') {
@@ -91,8 +99,32 @@ $(document).ready(function() {
  				$(".logined").hide();
  			};
  		});
- 	})
+ 	});
 
+ 	//提交评论
+ 	$('#commentBtn').click(function(){
+ 		var name=$('#name').val();
+ 		var email=$('#email').val();
+ 		var content=$('#content').val();
+ 		var postid=$('#postid').val();
+
+ 		if (content) {
+ 			$.post('/handleComments',
+ 				{name:name,email:email,content:content,postid:postid},function(data){
+ 					if (data.signal=='error') {
+ 						alert('发生错误');
+ 					}else if (data.signal=='success') {
+ 						alert('你的评论已提交成功，正在审核中...');
+ 					}else{
+ 						alert('提交失败');
+ 					}
+ 				});
+ 		}else{
+ 			alert('请填写评论内容');
+ 		}
+ 	});
+
+ 	//注册
  	var register={
  		regForm:function(){
 			$("#regModal").modal({
@@ -187,7 +219,7 @@ $(document).ready(function() {
  			};
  			
  		}
- 	}
+ 	};
 
  	$('#regbtn').click(register.regForm);
  	register.validate();
@@ -200,6 +232,30 @@ $(document).ready(function() {
     	return str;
     }
 
+});
+$(function() {
+	$.ajax({
+		url:'/recentComments',
+		type:'get',
+		success:function(data){
+			var comments=data.comments;
+			var articles=data.articles;
+			var html='';
+			for(var i in comments){
+				for(var j in articles){
+					if (comments[i].articleId==articles[j]._id) {
+					    html+="<li>"+comments[i].time+"  "+comments[i].name;
+						html+="在<a href='/article/"+articles[j]._id+"'>《"+articles[j].title+"》中说:</a>";
+						html+=comments[i].content+"</li>";
+					};
+				}
+			}
+			$('.recentComments').append(html);
+		},
+		error:function(error){
+			console.log('近期评论发生错误');
+		}
+	});
 });
 $(function() {
 	$('#team').fullpage({

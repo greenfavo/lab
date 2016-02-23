@@ -198,8 +198,6 @@ aside li {
   list-style: none;
   border-bottom: 1px solid #ccc;
   margin-top: 15px;
-  height: 30px;
-  line-height: 30px;
 }
 footer {
   clear: both;

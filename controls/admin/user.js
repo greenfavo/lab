@@ -2,15 +2,16 @@ var models=require('../../models/models.js');
 module.exports={
 	user:function(req,res){
 		if (req.session.username||req.signedCookies.username){
-			var pageSize=10;//每页文档数
+			var pageSize=5;//每页文档数
 			var currentPage=req.query.page||1;//当前页码
-			currentPage=currentPage<1? 1:currentPage;
 
 			models.User.count({},function(error,count){//查询总数
 				if (error) return console.log(error);
 
 				var pageCount=Math.ceil(count/pageSize);//总页数
 				currentPage=currentPage>pageCount? pageCount:currentPage;
+				currentPage=currentPage<1? 1:currentPage;
+
 				var skipNum=(currentPage-1)*pageSize;
 
 

@@ -26,6 +26,8 @@ $(document).ready(function() {
 	checkAll($('.checkAll'),$('.cate_box'));
 	checkAll($('.checkAll'),$('.article_box'));
 	checkAll($('.checkAll'),$('.user_box'));
+	checkAll($('.checkComments'),$('.comment_box'));
+
 
 
 

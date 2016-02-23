@@ -1,5 +1,6 @@
 {% extends '../layouts/admin.html' %}
 {% block content %}
+<!-- 待审用户 -->
 <form action="/admin/user/authorize" method="post">
 	<div class="panel panel-primary">
 		<div class="panel-heading">
@@ -54,6 +55,60 @@
     		</select>
     		<input type="submit" class="btn btn-default"/>
 		</div>
+	</div>
+</form>
+<!-- 待审评论 -->
+<form action="/admin/comment/deleteSelected" method="post">
+	<div class="panel panel-primary">
+		  <div class="panel-heading">
+		  	待审评论({{comments.length}})
+		  </div>
+
+		  <!-- Table -->
+		  <table class="table">
+		    <tr>
+		    	<th><input type="checkbox" class="checkComments"/></th>
+		    	<th>作者</th>
+		    	<th>类型</th>
+		    	<th>时间</th>
+		    	<th>评论内容</th>
+		    	<th>评论文章</th>
+		    	<th>操作</th>
+		    </tr>
+		    {% for comment in comments %}
+		    <tr>
+		    	<td><input type="checkbox" value="{{comment.id}}" class="comment_box" name="commentid" /></td>
+		    	<td>{{comment.name}}</td>
+		    	<td>
+		    		{% if comment.role=='user' %}
+		    			用户
+		    		{% else %}
+		    			游客
+		    		{% endif %}
+		    	</td>
+		    	<td>{{comment.time}}</td>
+		    	<td>{{comment.content}}</td>
+		    	<td>
+		    		{% for doc in docs %}
+						{% if comment.articleId==doc.id %}
+							<a href="/article/{{doc.id}}" target="_blank">{{doc.title}}</a>
+						{% endif %}
+		    		{% endfor %}
+		    	</td>		    	
+		    	<td>
+		    		{% if !comment.through %}
+		    		<a href="/admin/comment/through?id={{comment.id}}">批准</a>
+		    		<a href="/admin/comment/delete?id={{comment.id}}">删除</a>
+		    		{% else %}
+		    		<a href="/admin/comment/delete?id={{comment.id}}">删除</a>
+		    		{% endif %}
+		    	</td>
+		    </tr>
+		    {% endfor %}
+		  </table>
+		  <div class="panel-footer">
+		  	<input type="submit" class="btn btn-danger " value="批量删除"/>
+		  </div>
 	</div>
 </form>
 {% endblock %}

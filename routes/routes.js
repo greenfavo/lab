@@ -19,8 +19,12 @@ module.exports=function(app){
 
 	//文章详情页
 	app.get('/article/:id',article.detail);
+	
+	//评论处理
+	app.post('/handleComments',article.handleComments);
 
-	app.post('/handleComments',article.handleComments);//评论处理
+	//ajax请求近期评论
+	app.get('/recentComments',article.recentComments);
 
 	//团队历程--静态页面
 	app.get('/team',function(req,res){

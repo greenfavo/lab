@@ -2,6 +2,8 @@ var home=require('../controls/admin/home.js');
 var article=require('../controls/admin/article.js');
 var category=require('../controls/admin/category.js');
 var user=require('../controls/admin/user.js');
+var comment=require('../controls/admin/comment.js');
+
 
 
 module.exports=function(app){
@@ -33,5 +35,11 @@ module.exports=function(app){
     app.get('/admin/user/through*',user.through);//审核通过
     app.get('/admin/user/delete*',user.delete);//删除
     app.post('/admin/user/authorize',user.authorize);//授权并通过
+
+    //评论管理
+    app.get('/admin/comment',comment.comment);
+    app.get('/admin/comment/through*',comment.through);//审核通过
+    app.get('/admin/comment/delete',comment.delete);//删除
+    app.post('/admin/comment/deleteSelected',comment.deleteSelected);//批量删除
 
 }

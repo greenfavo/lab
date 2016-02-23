@@ -18,7 +18,6 @@
 		    	<th>时间</th>
 		    	<th>分类目录</th>
 		    	<th>标签</th>
-		    	<th>评论数</th>
 		    	<th>操作</th>
 		    </tr>
 		    {% for post in article %}
@@ -39,7 +38,6 @@
 						<span>{{t}}</span>
 		    		{% endfor %}
 		    	</td>
-		    	<td><a href="">{{post.comments.length}}</a></td>
 		    	<td>
 		    		<a href="/article/{{post.id}}" target="_blank">查看</a>
 		    		<a href="/admin/article/edit?id={{post.id}}">编辑</a>
@@ -48,7 +46,7 @@
 		    </tr>
 		    {% endfor %}
 		</table>
+		{% include '../layouts/pagination.html' %}
 	</div>
-	{% include '../layouts/pagination.html' %}
 </form>
 {% endblock %}
