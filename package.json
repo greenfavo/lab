@@ -32,6 +32,7 @@
     "fs-extra": "^0.26.5",
     "mongoose": "^4.4.2",
     "morgan": "^1.6.1",
+    "nimble": "0.0.2",
     "node-snowflake": "0.0.1",
     "swig": "^1.4.2"
   },

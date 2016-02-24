@@ -1,72 +1,117 @@
 var models=require('../../models/models.js');
 var format=require('../../middleware/format.js');
+var flow=require('nimble');//异步流程控制工具
 module.exports={
 	home:function(req,res){//主页
-		var pageSize=5;//每页文档数
 		var currentPage=req.query.page||1;//当前页码
+		var docs,hotPosts,skipNum,pageCount,pageSize=1; 
+		flow.series([//串行
+			function(callback){//查询总数
+				models.Article.count({},function(error,count){
+					if (error) return console.error(error);
 
-		models.Article.count({},function(error,count){//查询文章总数
-			if (error) return console.error(error);
+					pageCount=Math.ceil(count/pageSize);//总页数
+					currentPage=currentPage>pageCount? pageCount : currentPage;
+					currentPage=currentPage<1? 1:currentPage;
+					skipNum=(currentPage-1)*pageSize;//跳过的文档数
 
-			var pageCount=Math.ceil(count/pageSize);//总页数
-			currentPage=currentPage>pageCount? pageCount : currentPage;
-			currentPage=currentPage<1? 1:currentPage;
+					callback();
+				});
+			},
+			function(callback){
+				flow.parallel([//并行
+					function(callback){//分页
+						models.Article.find({},function(error,result){
+							if (error) return console.error(error);							
 
-			var skipNum=(currentPage-1)*pageSize;//跳过的文档数
+							docs=result;
+							callback();
+							
+						}).skip(skipNum).limit(pageSize).sort({_id:-1});
+					},
+					function(callback){//热门文章
+						models.Article.find({},function(error,result){
+							if (error) return console.error(error);
 
-			models.Article.find({},function(error,hotPosts){//热门文章
-				if (error) return console.log(error);
+							hotPosts=result;
+							callback();
+						}).limit(5).sort({views:-1});
+					}
+				],callback);
+			},
+			function(callback){//渲染
+				res.render('app/home',{
+					title:'主页',
+					docs:docs,
+					hotPosts:hotPosts,
+					pageCount:Array(pageCount),//因为swig for in循环必须是数组或对象
+					currentPage:currentPage,
+					url:''
+				});
 
-				models.Article.find({},function(error,docs){
-					if (error) return console.log(error);
-					res.render('app/home',{
-						title:'主页',
-						docs:docs,
-						hotPosts:hotPosts,
-						pageCount:Array(pageCount),//因为swig for in循环必须是数组或对象
-						currentPage:currentPage,
-						url:''
-					});
-
-				}).limit(pageSize).skip(skipNum).sort({_id:-1});
-				
-			}).sort({views:-1}).limit(5);
-
-		});
+				callback();
+			}
+		]);
 	},
 	detail:function(req,res){//文章详情页
 		var id=req.params.id;
-		var query=models.Article.findById(id);
 		var username=null;
+		var doc,hotPosts,comments;
+		var query=models.Article.findById(id);
 		if (req.session.username||req.signedCookies.username){
 			username=req.session.username||req.signedCookies.username;
 		}
-		//mongoose必须有回调，不然不执行  $inc数字型自增自减
-		models.Article.update(query,{$inc:{views:1}},function(error){
-			if (error) return console.error(error);
-		});
 
-		query.exec(function(error,doc){
-			if (error) {
-				return console.error(error);
+		flow.series([
+			function(callback){//浏览量更新
+				//mongoose必须有回调，不然不执行  $inc数字型自增自减
+				models.Article.update(query,{$inc:{views:1}},function(error){
+					if (error) return console.error(error);
+
+					callback();
+				});
+
+			},
+			function(callback){
+				flow.parallel([
+					function(callback){//查询单个文档
+						query.exec(function(error,result){
+							if (error) return console.error(error);
+
+							doc=result;
+							callback();
+						});
+					},
+					function(callback){//热门文章
+						models.Article.find({},function(error,result){
+							if (error) return console.error(error);
+
+							hotPosts=result;
+							callback();
+						}).limit(5).sort({views:-1});
+					},
+					function(callback){//查询评论
+						models.Comment.find({articleId:id,through:true},function(error,result){
+							if (error) return console.error(error);
+
+							comments=result;
+							callback();
+						}).limit(10).sort({time:-1});
+					}
+
+				],callback);
+			},
+			function(callback){//集中渲染
+				res.render('app/article',{
+					title:doc.title,
+					doc:doc,
+					hotPosts:hotPosts,
+					username:username,
+					comments:comments
+				});
+				callback();
 			}
-			models.Article.find({},function(error,hotPosts){//热门文章
-				if (error) {
-					return console.log(error);
-				};
-				models.Comment.find({articleId:id,through:true},function(error,comments){
-					res.render('app/article',{
-						title:doc.title,
-						doc:doc,
-						hotPosts:hotPosts,
-						username:username,
-						comments:comments
-					});
-				}).limit(10).sort({time:-1});
-								
-			}).sort({views:-1}).limit(5);			
-		})
-		
+		]);
 	},
 	handleComments:function(req,res){//评论处理
 		var id=req.body.postid;
@@ -117,6 +162,5 @@ module.exports={
 				});
 			});
 		}).limit(5).sort({_id:-1});
-	},
-	
+	},	
 }
