@@ -7,8 +7,8 @@
 * 首页:待审核用户，待审核评论
 * 文章管理：新建，编辑，查看，删除，显示所有文章，批量删除，分页
 * 分类目录：新建，编辑，查看，删除，显示所有分类，批量删除
-* 用户管理:查看所有用户，授权，删除，分页
-* 评论管理:查看所有评论，批准，删除，分页
+* 用户管理:查看所有用户，授权，删除
+* 评论管理:查看所有评论，批准，删除
 
 ###完成的前端显示
  1. 登录/注册
@@ -32,9 +32,27 @@ $ node index
 ```
 $ gulp
 ```
-##4,备注
+##4,效果展示
+1,首页
+![首页](/public/img/show_home.png)
+2,前台评论
+![前台评论](/public/img/show_comment.png)
+3,后台首页
+![仪表盘](/public/img/show_admin.png)
+4,所有文章
+![所有文章](/public/img/show_admin_allpost.png)
+5,编辑文章
+![编辑文章](/public/img/show_admin_edit.png)
+6,分类目录
+![分类目录](/public/img/show_admin_category.png)
+7,用户管理
+![用户管理](/public/img/show_admin_user.png)
+8,评论管理
+![评论管理](/public/img/show_admin_comment.png)
+##5,备注
 前端查询功能尚未全部完成。后台列出来的功能全部完成。
 后台地址:localhost:3000/admin
 后台初始账号密码:root,root
 
   [1]: http://www.new-thread.com/
+  
