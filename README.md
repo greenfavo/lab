@@ -1,4 +1,4 @@
-# 用nodejs+mongodb+swig+express重写的暑假实验室内部项目-内容管理系统 
+# 用nodejs+mongodb+swig+express写的实验室内部项目-内容管理系统 
 
 ##1，项目描述
 基于nodejs后端语言，express web应用开发框架，swig模板引擎和mongodb数据库开发的实验室官网。这本来是实验室暑假的内部项目，我只参与了文件上传部分的开发，对整个流程不是很了解，未上线。于是现在又自己从头到尾重新做一遍。[原网站][1]是用wordpress做的，于是我就模仿wordpress的功能写。
